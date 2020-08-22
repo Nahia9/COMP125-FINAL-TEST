@@ -84,25 +84,38 @@ let Game = (function(){
         stage.addChild(resetButton);
 
         //Adding Dices
-        diceNumber1 = new Core.GameObject("1", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+        diceNumber1 = new Core.GameObject("5", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
         stage.addChild(diceNumber1);
 
         diceNumber2 = new Core.GameObject("3", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
         stage.addChild(diceNumber2);
 
         //Adding Dice labels
-        diceLabel1 = new UIObjects.Label("0", "25px", "Consolas", "#000000", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y +35, true);
+        diceLabel1 = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y +35, true);
         stage.addChild(diceLabel1);
 
-        diceLabel2 = new UIObjects.Label("0", "25px", "Consolas", "#000000", Config.Game.CENTER_X +160, Config.Game.CENTER_Y +35, true);
+        diceLabel2 = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X +160, Config.Game.CENTER_Y +35, true);
         stage.addChild(diceLabel2);
 
-        resultLabel = new UIObjects.Label("0", "25px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y +45, true);
+        resultLabel = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y +45, true);
         stage.addChild(resultLabel);
 
 
     }
 
+    // Generation of Random numbers
+    function generateRandom() {
+        randomNumber1 = Math.floor((Math.random() * 6) + 1);
+        randomNumber2 = Math.floor((Math.random() * 6) + 1);
+    }
+    // game logic goes here
+    function interfaceLogic() 
+    {
+        rollButton.on("click", () => {
+            console.log("Roll Button clicked");
+
+        });
+    }
     /**
      * This is the main function of the Game (where all the fun happens)
      *
@@ -111,7 +124,7 @@ let Game = (function(){
     {
         console.log(`%c Main Function`, "color: grey; font-size: 14px; font-weight: bold;");
 
-        
+        buildInterface();
     
     }
 

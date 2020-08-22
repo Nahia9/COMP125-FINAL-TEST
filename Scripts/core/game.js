@@ -4,8 +4,22 @@ let Game = (function () {
     let canvas = document.getElementsByTagName('canvas')[0];
     let stage;
     let assets;
-    let exampleLabel;
-    let exampleButton;
+    //dice labels
+    let diceLabel1;
+    let diceLabel2;
+    let resultLabel;
+    //Game buttons
+    let rollButton;
+    let resetButton;
+    //dices
+    let diceNumber1;
+    let diceNumber2;
+    //Background
+    let background;
+    // randomNumbers
+    let randomNumber1 = 0;
+    let randomNumber2 = 0;
+    let result = 0;
     let assetManifest = [
         { id: "1", src: "./Assets/images/1.png" },
         { id: "2", src: "./Assets/images/2.png" },
@@ -13,16 +27,10 @@ let Game = (function () {
         { id: "4", src: "./Assets/images/4.png" },
         { id: "5", src: "./Assets/images/5.png" },
         { id: "6", src: "./Assets/images/6.png" },
-        { id: "backButton", src: "./Assets/images/startButton.png" },
-        { id: "background", src: "./Assets/images/background.png" },
+        { id: "background", src: "./Assets/images/background1.jpg" },
         { id: "blank", src: "./Assets/images/blank.png" },
-        { id: "button", src: "./Assets/images/button.png" },
-        { id: "nextButton", src: "./Assets/images/nextButton.png" },
-        { id: "placeholder", src: "./Assets/images/placeholder.png" },
         { id: "resetButton", src: "./Assets/images/resetButton.png" },
         { id: "rollButton", src: "./Assets/images/rollButton.png" },
-        { id: "startButton", src: "./Assets/images/startButton.png" },
-        { id: "startOverButton", src: "./Assets/images/startOverButton.png" }
     ];
     function Preload() {
         console.log(`%c Preload Function`, "color: grey; font-size: 14px; font-weight: bold;");
@@ -51,19 +59,47 @@ let Game = (function () {
     function Update() {
         stage.update();
     }
+    //function for creating objects
+    function buildInterface() {
+        //create background
+        background = new Core.GameObject("background", Config.Game.CENTER_X, Config.Game.CENTER_Y, true);
+        stage.addChild(background);
+        // Adding Buttons
+        rollButton = new UIObjects.Button("rollButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 100, true);
+        stage.addChild(rollButton);
+        resetButton = new UIObjects.Button("resetButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 170, true);
+        stage.addChild(resetButton);
+        //Adding Dices
+        diceNumber1 = new Core.GameObject("5", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(diceNumber1);
+        diceNumber2 = new Core.GameObject("3", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(diceNumber2);
+        //Adding Dice labels
+        diceLabel1 = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y + 35, true);
+        stage.addChild(diceLabel1);
+        diceLabel2 = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y + 35, true);
+        stage.addChild(diceLabel2);
+        resultLabel = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y + 45, true);
+        stage.addChild(resultLabel);
+    }
+    // Generation of Random numbers
+    function generateRandom() {
+        randomNumber1 = Math.floor((Math.random() * 6) + 1);
+        randomNumber2 = Math.floor((Math.random() * 6) + 1);
+    }
+    // game logic goes here
+    function interfaceLogic() {
+        rollButton.on("click", () => {
+            console.log("Roll Button clicked");
+        });
+    }
     /**
      * This is the main function of the Game (where all the fun happens)
      *
      */
     function Main() {
         console.log(`%c Main Function`, "color: grey; font-size: 14px; font-weight: bold;");
-        exampleLabel = new UIObjects.Label("An Example Label", "40px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y, true);
-        stage.addChild(exampleLabel);
-        exampleButton = new UIObjects.Button("button", Config.Game.CENTER_X, Config.Game.CENTER_Y + 100, true);
-        stage.addChild(exampleButton);
-        exampleButton.on("click", () => {
-            console.log("example button clicked");
-        });
+        buildInterface();
     }
     window.addEventListener('load', Preload);
 })();
