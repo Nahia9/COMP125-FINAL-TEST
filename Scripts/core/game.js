@@ -68,16 +68,16 @@ let Game = (function () {
         //create background
         background = new Core.GameObject("background", Config.Game.CENTER_X, Config.Game.CENTER_Y, true);
         stage.addChild(background);
-        //Adding starting image
-        leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
-        stage.addChild(leftbanner);
-        rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
-        stage.addChild(rightbanner);
         // Adding Buttons
         rollButton = new UIObjects.Button("rollButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 100, true);
         stage.addChild(rollButton);
         resetButton = new UIObjects.Button("resetButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 170, true);
         stage.addChild(resetButton);
+        //Adding starting images
+        leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(leftbanner);
+        rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(rightbanner);
     }
     // game logic goes here
     function interfaceLogic() {
@@ -105,6 +105,10 @@ let Game = (function () {
             console.log("reset Button clicked");
             //Removing all the previous dice rollings and labels
             stage.removeChild(diceNumber1, diceNumber2, diceLabel1, diceLabel2, resultLabel);
+            leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+            stage.addChild(leftbanner);
+            rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
+            stage.addChild(rightbanner);
         });
     }
     //This is the main function of the Game (where all the fun happens)
