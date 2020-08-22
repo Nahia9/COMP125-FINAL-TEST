@@ -1,4 +1,11 @@
 "use strict";
+/*
+ * File Name: COMP125-M2020-FinalExam
+ * Author's Name: Nahia Akter
+ * Student ID: 301106956
+ * Date: August 21,2020
+ * Program Description: Roll the Dice game
+ */
 let Game = (function () {
     // variable declarations
     let canvas = document.getElementsByTagName('canvas')[0];
@@ -41,10 +48,8 @@ let Game = (function () {
         assets.loadManifest(assetManifest);
         assets.on("complete", Start);
     }
-    /**
-     * This method initializes the CreateJS (EaselJS) Library
-     * It sets the framerate to 60 FPS and sets up the main Game Loop (Update)
-     */
+    //This method initializes the CreateJS (EaselJS) Library
+    //It sets the framerate to 60 FPS and sets up the main Game Loop (Update)
     function Start() {
         console.log(`%c Start Function`, "color: grey; font-size: 14px; font-weight: bold;");
         stage = new createjs.Stage(canvas);
@@ -54,10 +59,7 @@ let Game = (function () {
         Config.Game.ASSETS = assets; // make a reference to the assets in the global config
         Main();
     }
-    /**
-     * This function is triggered every frame (16ms)
-     * The stage is then erased and redrawn
-     */
+    //This function is triggered every frame (16ms).The stage is then erased and redrawn 
     function Update() {
         stage.update();
     }
@@ -66,16 +68,16 @@ let Game = (function () {
         //create background
         background = new Core.GameObject("background", Config.Game.CENTER_X, Config.Game.CENTER_Y, true);
         stage.addChild(background);
-        // Adding Buttons
-        rollButton = new UIObjects.Button("rollButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 100, true);
-        stage.addChild(rollButton);
-        resetButton = new UIObjects.Button("resetButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 170, true);
-        stage.addChild(resetButton);
         //Adding starting image
         leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
         stage.addChild(leftbanner);
         rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
         stage.addChild(rightbanner);
+        // Adding Buttons
+        rollButton = new UIObjects.Button("rollButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 100, true);
+        stage.addChild(rollButton);
+        resetButton = new UIObjects.Button("resetButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 170, true);
+        stage.addChild(resetButton);
     }
     // game logic goes here
     function interfaceLogic() {
@@ -86,12 +88,12 @@ let Game = (function () {
             result = randomNumber1 + randomNumber2;
             //Removing all the previous dice rollings and labels
             stage.removeChild(diceLabel1, diceLabel2, resultLabel);
-            //Showing the random no. Dices
+            //Showing the random number Dices
             diceNumber1 = new Core.GameObject(randomNumber1.toString(), Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
             stage.addChild(diceNumber1);
             diceNumber2 = new Core.GameObject(randomNumber2.toString(), Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
             stage.addChild(diceNumber2);
-            //Adding and showing randomly generated no. and result in  Dice labels
+            //Adding and showing randomly generated number and result in  Dice labels
             diceLabel1 = new UIObjects.Label(randomNumber1.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y + 25, true);
             stage.addChild(diceLabel1);
             diceLabel2 = new UIObjects.Label(randomNumber2.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y + 25, true);
@@ -103,16 +105,9 @@ let Game = (function () {
             console.log("reset Button clicked");
             //Removing all the previous dice rollings and labels
             stage.removeChild(diceNumber1, diceNumber2, diceLabel1, diceLabel2, resultLabel);
-            leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
-            stage.addChild(leftbanner);
-            rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
-            stage.addChild(rightbanner);
         });
     }
-    /**
-     * This is the main function of the Game (where all the fun happens)
-     *
-     */
+    //This is the main function of the Game (where all the fun happens)
     function Main() {
         console.log(`%c Main Function`, "color: grey; font-size: 14px; font-weight: bold;");
         buildInterface();

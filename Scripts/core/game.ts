@@ -1,3 +1,11 @@
+/*
+ * File Name: COMP125-M2020-FinalExam
+ * Author's Name: Nahia Akter
+ * Student ID: 301106956
+ * Date: August 21,2020
+ * Program Description: Roll the Dice game
+ */
+
 let Game = (function(){
 
     // variable declarations
@@ -45,8 +53,6 @@ let Game = (function(){
         assets.loadManifest(assetManifest);
         assets.on("complete", Start);
     }
-
-    
      //This method initializes the CreateJS (EaselJS) Library
      //It sets the framerate to 60 FPS and sets up the main Game Loop (Update)
     function Start():void
@@ -61,6 +67,7 @@ let Game = (function(){
 
         Main();
     }
+
      //This function is triggered every frame (16ms).The stage is then erased and redrawn 
     function Update():void
     {
@@ -87,16 +94,15 @@ let Game = (function(){
 
         resetButton = new UIObjects.Button("resetButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 170, true);
         stage.addChild(resetButton);
-        
     }
 
     // game logic goes here
     function interfaceLogic() 
     {
-        
         rollButton.on("click", () => 
         {
             console.log("Roll Button clicked");
+
             randomNumber1 = Math.floor((Math.random() * 6) + 1);
             randomNumber2 = Math.floor((Math.random() * 6) + 1);
             result = randomNumber1 + randomNumber2;
@@ -104,18 +110,20 @@ let Game = (function(){
             //Removing all the previous dice rollings and labels
             stage.removeChild(diceLabel1, diceLabel2, resultLabel);
             
-            //Showing the random no. Dices
+            //Showing the random number Dices
             diceNumber1 = new Core.GameObject(randomNumber1.toString(), Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
             stage.addChild(diceNumber1);
 
             diceNumber2 = new Core.GameObject(randomNumber2.toString(), Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
             stage.addChild(diceNumber2)
 
-            //Adding and showing randomly generated no. and result in  Dice labels
+            //Adding and showing randomly generated number and result in  Dice labels
             diceLabel1 = new UIObjects.Label(randomNumber1.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y + 25, true);
             stage.addChild(diceLabel1);
+
             diceLabel2 = new UIObjects.Label(randomNumber2.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y + 25, true);
             stage.addChild(diceLabel2);
+            
             resultLabel = new UIObjects.Label(result.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y + 45, true);
             stage.addChild(resultLabel);
 
