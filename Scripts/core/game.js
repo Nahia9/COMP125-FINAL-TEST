@@ -16,6 +16,8 @@ let Game = (function () {
     let diceNumber2;
     //Background
     let background;
+    let leftbanner;
+    let rightbanner;
     // randomNumbers
     let randomNumber1 = 0;
     let randomNumber2 = 0;
@@ -28,7 +30,7 @@ let Game = (function () {
         { id: "5", src: "./Assets/images/5.png" },
         { id: "6", src: "./Assets/images/6.png" },
         { id: "background", src: "./Assets/images/background1.jpg" },
-        { id: "blank", src: "./Assets/images/blank.png" },
+        { id: "banner", src: "./Assets/images/banner1.jpg" },
         { id: "resetButton", src: "./Assets/images/resetButton.png" },
         { id: "rollButton", src: "./Assets/images/rollButton.png" },
     ];
@@ -69,11 +71,11 @@ let Game = (function () {
         stage.addChild(rollButton);
         resetButton = new UIObjects.Button("resetButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 170, true);
         stage.addChild(resetButton);
-        //Adding Dices
-        diceNumber1 = new Core.GameObject("5", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
-        stage.addChild(diceNumber1);
-        diceNumber2 = new Core.GameObject("3", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
-        stage.addChild(diceNumber2);
+        //Adding starting image
+        leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(leftbanner);
+        rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(rightbanner);
     }
     // game logic goes here
     function interfaceLogic() {
@@ -96,6 +98,15 @@ let Game = (function () {
             stage.addChild(diceLabel2);
             resultLabel = new UIObjects.Label(result.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y + 45, true);
             stage.addChild(resultLabel);
+        });
+        resetButton.on("click", () => {
+            console.log("reset Button clicked");
+            //Removing all the previous dice rollings and labels
+            stage.removeChild(diceNumber1, diceNumber2, diceLabel1, diceLabel2, resultLabel);
+            leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+            stage.addChild(leftbanner);
+            rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
+            stage.addChild(rightbanner);
         });
     }
     /**

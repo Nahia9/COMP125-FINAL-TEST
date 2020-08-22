@@ -16,6 +16,8 @@ let Game = (function(){
     let diceNumber2 : Core.GameObject;
     //Background
     let background : Core.GameObject;
+    let leftbanner : Core.GameObject;
+    let rightbanner : Core.GameObject;
     // randomNumbers
     let randomNumber1 = 0;
     let randomNumber2 = 0;
@@ -30,7 +32,7 @@ let Game = (function(){
         {id:"5", src:"./Assets/images/5.png"},
         {id:"6", src:"./Assets/images/6.png"},
         {id:"background", src:"./Assets/images/background1.jpg"},
-        {id:"blank", src:"./Assets/images/blank.png"},
+        {id:"banner", src:"./Assets/images/banner1.jpg"},
         {id:"resetButton", src:"./Assets/images/resetButton.png"},
         {id:"rollButton", src:"./Assets/images/rollButton.png"},
     ];
@@ -44,10 +46,9 @@ let Game = (function(){
         assets.on("complete", Start);
     }
 
-    /**
-     * This method initializes the CreateJS (EaselJS) Library
-     * It sets the framerate to 60 FPS and sets up the main Game Loop (Update)
-     */
+    
+     //This method initializes the CreateJS (EaselJS) Library
+     //It sets the framerate to 60 FPS and sets up the main Game Loop (Update)
     function Start():void
     {
         console.log(`%c Start Function`, "color: grey; font-size: 14px; font-weight: bold;");
@@ -60,11 +61,7 @@ let Game = (function(){
 
         Main();
     }
-
-    /**
-     * This function is triggered every frame (16ms)
-     * The stage is then erased and redrawn 
-     */
+     //This function is triggered every frame (16ms).The stage is then erased and redrawn 
     function Update():void
     {
         stage.update();
@@ -76,26 +73,27 @@ let Game = (function(){
         //create background
         background = new Core.GameObject("background", Config.Game.CENTER_X, Config.Game.CENTER_Y, true);
         stage.addChild(background);
+
+        //Adding starting image
+        leftbanner = new Core.GameObject("banner", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(leftbanner);
+
+        rightbanner = new Core.GameObject("banner", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
+        stage.addChild(rightbanner);
+        
         // Adding Buttons
         rollButton = new UIObjects.Button("rollButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 100, true);
         stage.addChild(rollButton);
 
         resetButton = new UIObjects.Button("resetButton", Config.Game.CENTER_X, Config.Game.CENTER_Y + 170, true);
         stage.addChild(resetButton);
-
-        //Adding Dices
-        diceNumber1 = new Core.GameObject("5", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
-        stage.addChild(diceNumber1);
-
-        diceNumber2 = new Core.GameObject("3", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
-        stage.addChild(diceNumber2);
-
-
+        
     }
 
     // game logic goes here
     function interfaceLogic() 
     {
+        
         rollButton.on("click", () => 
         {
             console.log("Roll Button clicked");
@@ -105,6 +103,7 @@ let Game = (function(){
 
             //Removing all the previous dice rollings and labels
             stage.removeChild(diceLabel1, diceLabel2, resultLabel);
+            
             //Showing the random no. Dices
             diceNumber1 = new Core.GameObject(randomNumber1.toString(), Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
             stage.addChild(diceNumber1);
@@ -120,14 +119,19 @@ let Game = (function(){
             resultLabel = new UIObjects.Label(result.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y + 45, true);
             stage.addChild(resultLabel);
 
-            
+        });
+
+        resetButton.on("click", () =>
+        {
+            console.log("reset Button clicked");
+            //Removing all the previous dice rollings and labels
+            stage.removeChild(diceNumber1, diceNumber2, diceLabel1, diceLabel2, resultLabel)
 
         });
+
     }
-    /**
-     * This is the main function of the Game (where all the fun happens)
-     *
-     */
+    
+     //This is the main function of the Game (where all the fun happens)
     function Main():void
     {
         console.log(`%c Main Function`, "color: grey; font-size: 14px; font-weight: bold;");
@@ -137,6 +141,4 @@ let Game = (function(){
     }
 
     window.addEventListener('load', Preload);
-
-
 })();
