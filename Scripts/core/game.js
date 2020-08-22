@@ -74,23 +74,28 @@ let Game = (function () {
         stage.addChild(diceNumber1);
         diceNumber2 = new Core.GameObject("3", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
         stage.addChild(diceNumber2);
-        //Adding Dice labels
-        diceLabel1 = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y + 35, true);
-        stage.addChild(diceLabel1);
-        diceLabel2 = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y + 35, true);
-        stage.addChild(diceLabel2);
-        resultLabel = new UIObjects.Label("0", "30px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y + 45, true);
-        stage.addChild(resultLabel);
-    }
-    // Generation of Random numbers
-    function generateRandom() {
-        randomNumber1 = Math.floor((Math.random() * 6) + 1);
-        randomNumber2 = Math.floor((Math.random() * 6) + 1);
     }
     // game logic goes here
     function interfaceLogic() {
         rollButton.on("click", () => {
             console.log("Roll Button clicked");
+            randomNumber1 = Math.floor((Math.random() * 6) + 1);
+            randomNumber2 = Math.floor((Math.random() * 6) + 1);
+            result = randomNumber1 + randomNumber2;
+            //Removing all the previous dice rollings and labels
+            stage.removeChild(diceLabel1, diceLabel2, resultLabel);
+            //Showing the random no. Dices
+            diceNumber1 = new Core.GameObject(randomNumber1.toString(), Config.Game.CENTER_X - 160, Config.Game.CENTER_Y - 90, true);
+            stage.addChild(diceNumber1);
+            diceNumber2 = new Core.GameObject(randomNumber2.toString(), Config.Game.CENTER_X + 160, Config.Game.CENTER_Y - 90, true);
+            stage.addChild(diceNumber2);
+            //Adding and showing randomly generated no. and result in  Dice labels
+            diceLabel1 = new UIObjects.Label(randomNumber1.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X - 160, Config.Game.CENTER_Y + 25, true);
+            stage.addChild(diceLabel1);
+            diceLabel2 = new UIObjects.Label(randomNumber2.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X + 160, Config.Game.CENTER_Y + 25, true);
+            stage.addChild(diceLabel2);
+            resultLabel = new UIObjects.Label(result.toString(), "30px", "Consolas", "#000000", Config.Game.CENTER_X, Config.Game.CENTER_Y + 45, true);
+            stage.addChild(resultLabel);
         });
     }
     /**
@@ -100,6 +105,7 @@ let Game = (function () {
     function Main() {
         console.log(`%c Main Function`, "color: grey; font-size: 14px; font-weight: bold;");
         buildInterface();
+        interfaceLogic();
     }
     window.addEventListener('load', Preload);
 })();
